@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+	<grid name="student-address-grid" editable="true"
+		title="Addresses" model="com.axelor.student.db.SAddress">
+		<field name="stdaddr" />
+	</grid>
+
+	<form model="com.axelor.student.db.SAddress" title="Address"
+		name="student-address-form">
+		<field name="stdaddr"></field>
+		<field name="stdAdd"></field>
+	</form>
+
+	<action-view name="address.tree" title="Address"
+		model="com.axelor.student.db.SAddress">
+		<view type="grid" name="student-address-grid" />
+		<view type="form" name="student-address-form" />
+		<domain>self.id = :address_id</domain>
+		<context name="address_id" expr="eval:id" />
+		<context name="_showSingle" expr="true" />
+	</action-view>
+
+</object-views>

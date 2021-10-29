@@ -1,0 +1,7 @@
+rootProject.name = 'AopProject'
+
+include "modules:axelor-address"
+include "modules:axelor-employee"
+include "modules:axelor-student"
+include "modules:student-education"
+

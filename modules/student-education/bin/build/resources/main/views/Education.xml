@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+		<selection name="education.status.type">
+				<option value="0" color="red" >Pending</option>
+				<option value="1" color="purple">Pass</option>
+				<option value="2" color="blue" >Fail</option>
+		</selection>
+		<selection name="education.examination.type">
+				<option value="0">Matriculation</option>
+				<option value="1">Intermediate</option>
+				<option value="2">Bachelor's Degree</option>
+				<option value="3">Master's Degree</option>
+		</selection>
+
+		<grid model="com.axelor.education.db.Education" title="Educations" name="education-grid">
+				<field name="examination" title="Examination" />
+				<field name="university" title="University" />
+				<field name="institute" title="Institute"></field>
+				<field name="yearOfPassing" title="Year Of Passing" />
+				<field name="percentage" title="Percentage" />
+				<field name="status" title="Status" />
+		</grid>
+		<form model="com.axelor.education.db.Education" title="Educion" name="education-forms" onLoad="education.change">
+				<panel>
+						<field name="examination" title="Examination" onChange="action-education-validate-exam-onchange" />
+						<field name="university" title="University" />
+						<field name="institute" title="Institute"></field>
+						<field name="yearOfPassing" title="Year Of Passing" />
+						<field name="percentage" title="Percentage" widget="Integer" />
+						<field name="status" title="Status" widget="SingleSelect" selection="education.status.type"/>
+				</panel>
+
+		</form>
+
+		<action-validate name="action-education-validate-exam-onchange">
+				<error message="Exam already selected previously" if="__parent__?.educations.any{it->it.examination == examination}" />
+		</action-validate>
+
+		<action-attrs name="education.change">
+				<attribute for="status" name="readonly" expr="1" />
+				<attribute for="examination" name="hidden" expr="2" />
+		</action-attrs>
+
+</object-views>

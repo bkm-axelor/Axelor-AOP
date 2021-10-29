@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+  
+  <form name="education-students-form" title="Student Education" model="com.axelor.education.db.StudentsEducation"
+		width="large" extension="true" id="student-form">
+		<extend target="//field[@name='phone']">
+			<insert position="after">
+				<field name="details" title="Details" />
+			</insert>
+		</extend>
+	</form>
+  
+</object-views>

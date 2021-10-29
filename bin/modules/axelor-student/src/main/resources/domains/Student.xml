@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models
+	xmlns="http://axelor.com/xml/ns/domain-models"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/domain-models
+  http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+
+	<module name="studentmodule" package="com.axelor.student.db" />
+
+	<entity name="Student" cacheable="true">
+
+		<string name="stdName" required="true" max="255" />
+		<one-to-one ref="Phone" name="stdPh" orphanRemoval="true" />
+		<one-to-many ref="SAddress" name="stdAdds" mappedBy="stdAdd" orphanRemoval="true" />
+		<many-to-one ref="Department" name="stdDept" />
+		<many-to-many ref="Subject" name="stdSub"  />
+		<date name="joinDate" />
+		<integer name="result" default="0" selection="student.result.type"/>
+	</entity>
+
+</domain-models>

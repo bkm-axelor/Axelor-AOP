@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+	<selection name="student.result.type">
+		<option value="0">Pending</option>
+		<option value="1">Pass</option>
+		<option value="2">Fail</option>
+	</selection>
+
+	<grid name="student-grid" editable="true" title="Student"
+		model="com.axelor.student.db.Student">
+		<field name="stdName" />
+		<field name="stdPh" />
+		<field name="stdAdds" />
+		<field name="stdDept" />
+		<field name="stdAdds" title="Address"
+			grid-view="student-address-grid"></field>
+		<field name="stdSub" />
+		<field name="joinDate" title="Joining Date"></field>
+		<field name="result" title="Result" readonlyIf="Pending"></field>
+	</grid>
+
+	<form model="com.axelor.student.db.Student" title="Students"
+		name="student-form">
+		<panel title="StudentView">
+			<field name="stdName" title="Student Name" colSpan="4"></field>
+			<field name="stdPh" canNew="true" title="Phone Number"
+				colSpan="4" form-view="student-phone-form"></field>
+			<!-- <panel-related field="stdPh" form-view="student-phone-form" colSpan="4"></panel-related> -->
+			<field name="stdDept" colSpan="4" title="Department"
+				canNew="true" form-view="student-department-form"></field>
+			<field name="stdAdds" title="Address" colSpan="12"
+				form-view="student-address-form"></field>
+		</panel>
+		<panel-related field="stdSub">
+			<field name="stdSubName" title="Subject" colSpan="12"></field>
+		</panel-related>
+
+		<panel>
+			<field name="joinDate" title="Joining Date"></field>
+			<field name="result" title="Result" readonlyIf="Pending"></field>
+		</panel>
+		
+		
+	</form>
+
+	<tree name="student-address-tree" title="Std Dept Tree">
+
+		<!-- define tree columns -->
+		<column name="title" type="string" />
+		<column name="address" type="string" />
+
+		<!-- define 1st level node -->
+		<node model="com.axelor.student.db.Student">
+			<!-- onClick="student.tree" -->
+			<field name="stdName" as="title" />
+		</node>
+
+		<!-- define 2nd level node -->
+		<node model="com.axelor.student.db.SAddress" parent="stdAdd"
+			onClick="address.tree" draggable="true">
+			<field name="stdName" as="title" />
+			<field name="stdaddr" as="address" />
+		</node>
+
+	</tree>
+
+
+	<cards name="student-cards" title="Student Card"
+		model="com.axelor.student.db.Student" orderBy="stdName">
+		<field name="stdName" title="Name" />
+		<field name="stdPh" title="Phone Number" />
+		<field name="stdDept" title="Department" />
+		<field name="stdAdds" title="Address"></field>
+		<field name="stdSub" title="Subject" />
+		<field name="joinDate" title="Joining Date"></field>
+		<field name="result" title="Result"></field>
+		<template><![CDATA[
+		  <div class="span4">
+		    <h1>{{stdName}}</h1>
+		    <div>
+		      <div>{{stdPh}} </div>
+		      <div>{{stdSub}} </div>
+		    </div>
+		    <div>
+		      <div>{{joinDate}} </div>
+		      <div>{{result}} </div>
+		    </div>
+	</div>
+  ]]></template>
+	</cards>
+	
+	<!--   <div class="span4 card-image">
+	    <strong>{{stdName}}</strong>
+	  </div> -->
+
+</object-views>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+	<selection name="education.higherstudies.select">
+		<option value="1" color="purple">Yes</option>
+		<option value="2" color="lightgreen">No</option>
+	</selection>
+
+	<!-- <selection name="education.jobs.select"> <option value="1">Yes</option> <option value="2">No</option> </selection> -->
+
+	<selection name="education.gender.select">
+		<option value="1">Male</option>
+		<option value="2">Female</option>
+	</selection>
+
+	<form model="com.axelor.education.db.StudentsEducation" title="Students Education Form" name="education-students-form" onNew="action-education-attr-onNew"
+		onLoad="action-education-attr-onLoad" onSave="action-condition-validation-check-onsave" css="panel-blue">
+		<toolbar>
+			<button onClick="action-education-report-all-btn-onclick" name="btn-print" iconHover="fa-spinner" showIf="id" title="Print" icon="fa-print" showTitle="false"
+				prompt="Are You Sure To Print ?!!!"></button>
+		</toolbar>
+		<panel title="Students">
+			<panel name="imagePanel" colSpan="12" itemSpan="12">
+				<field name="image" widget="Image" colSpan="4" help="Image">
+					<viewer>
+						<![CDATA[
+							<img ng-if="(record.studentimage)" ng-src="{{$image(null, 'studentimage')}}">
+							<img ng-if="(!record.studentimage)"  src="img/user.png">
+						]]>
+					</viewer>
+				</field>
+
+				<!-- </panel> <panel colSpan="8" css="panel-red"> -->
+				<field name="name" title="Name" colSpan="4" help="Name" /> <!-- widget="code-editor" -->
+				<field name="rollno" title="Roll Number" widget="Integer" help="Roll no" colSpan="4" />
+			</panel>
+			<panel colSpan="12">
+				<field name="email" title="Email" widget="email" help="Enter Your Email" />
+				<field name="phone" title="Phone" widget="phone" x-initial-country="IN" help="Phone No" />
+			</panel>
+		</panel>
+
+		<panel title="Description" canCollapse="true" hideIf="!name" showFrame="true">
+			<field name="notes" showTitle="false" colSpan="12" />
+		</panel>
+
+		<panel title="Education">
+			<field name="educations" showTitle="false" form-view="education-forms" colSpan="12" />
+		</panel>
+		<!-- <panel-related field="educations" x-type="one-to-many" x-target="com.axelor.education.db.Education" /> -->
+		<panel>
+			<field name="gender" title="Gender" widget="RadioSelect" onChange="action-education-group-gender-onchange"></field> <!-- NavSelect -->
+		</panel>
+		<panel>
+			<field name="higherstudies" title="Are you Going For Higher Studies" onChange="action-education-attr-studies-onchange" widget="SingleSelect" />   <!-- CheckboxSelect -->
+			<field name="job" title="Looking For Jobs ?!!!" css="inline-checkbox" onChange="com.axelor.meta.web.EducationStudent:onConfirmJob" widget="boolean-switch" x-true-text="Yes"
+				x-false-text="No" />
+		</panel>
+		<panel sidebar="true">
+			<field name="todaydate" title=" Today Date" readonly="true" widget="date" />
+			<field name="currentuser" title="Current User" readonly="true" />
+		</panel>
+
+	</form>
+
+
+	<action-report output="demo_reports-${date}${time}" name="action-education-report-all-btn-onclick" design="demo_reports.rptdesign" format="pdf">
+		<param name="educationId" expr="eval: id" />
+	</action-report>
+
+	<action-condition name="action-condition-validation-check-onsave">
+		<check field="rollno" error="Enter The Roll Number" />
+	</action-condition>
+
+
+	<action-attrs name="action-education-attr-onNew">
+		<attribute name="value" for="todaydate" expr="eval:__date__" />
+		<attribute name="value" for="currentuser" expr="eval:__user__.name" />
+	</action-attrs>
+
+	<action-attrs name="action-education-attr-onLoad">
+		<attribute name="title" for="currentuser" expr="eval: String.format('Created BY')" />
+	</action-attrs>
+
+	<action-group name="action-education-group-gender-onchange">
+		<action name="action-education-validate-gender-onchange" />
+		<action name="action-education-method-gender-onchange" if="!name.empty &amp; !gender.empty" />
+	</action-group>
+
+	<action-validate name="action-education-validate-gender-onchange">
+		<info message="Enter Name" if="!name" />
+	</action-validate>
+
+	<action-method name="action-education-method-gender-onchange">
+		<call class="com.axelor.meta.web.Gender" method="addprefix" />
+	</action-method>
+
+
+	<action-attrs name="action-education-attr-studies-onchange">
+		<attribute name="required" for="higherstudies" expr="!higherstudies" />
+		<!-- <attribute name="hidden" for="job" expr="job" if="higherstudies=2"/> -->
+		<!-- <attribute name="!hidden" for="job" expr="higherstudies=1"/> -->
+	</action-attrs>
+
+	<grid model="com.axelor.education.db.StudentsEducation" title="Students Education Grid" name="education-students-grid">
+		<field name="name" title="Name" />
+		<field name="rollno" title="Roll Number" />
+		<field name="educations" grid-view="education-grid" />
+		<field name="gender" title="Gender" />
+		<field name="higherstudies" title="Higher Studies" />
+		<field name="job" title="For Jobs" />
+		<field name="todaydate" />
+		<field name="currentuser" />
+	</grid>
+
+	<cards name="education-students-card" model="com.axelor.education.db.StudentsEducation" title="StudentEducation" css="rect-image">
+		<field name="name" title="Name" />
+		<field name="image" widget="Image" />
+		<template><![CDATA[
+			<div class="span4 card-image">
+		        <img ng-if="image" ng-src="{{$image(null, 'image')}}">
+		         <img ng-if="!studentimage" src="img/user.png">
+		        <strong>{{name}}</strong>
+		      </div>
+    ]]></template>
+	</cards>
+
+	<!-- <action-script name="action-education-script-button-onclick" model="com.axelor.meta.db.MetaJsonRecord"> <script language="js" transactional="true"> <![CDATA[ window.alert('message'); 
+		out.println('Hello from JavaScript'); ]]> </script> </action-script> -->
+	<!-- ${name}, ${date}, ${time} -->
+
+	<!-- widget="toggle" x-icon="fa-star-o" x-icon-active="fa-star" <field name="job" title="Looking For Jobs ?!!!" widget="boolean-switch" css="inline-checkbox" onChange="com.axelor.meta.web.EducationStudent:onConfirmJob" 
+		/> boolean-select boolean-switch showIf="higherstudies==2" --> <!-- onChange="com.axelor.meta.web.EducationStudent:onConfirmJob" -->
+
+	<!-- <panel> <button onClick="action-education-script-button-onclick" name="Call JS" /> </panel> -->
+	<!-- <panel showIf="higherstudies==1"> <field name=""></field> </panel> -->
+
+	<!-- <img ng-if="!image" src="img/user.png"> -->
+	<!-- onLoad="action-education-attr-job-onload" -->
+	<!-- <action-attrs name="action-education-attr-job-onload"> <attribute name="hidden" for="job" expr="job" if="!job?.trim()" /> </action-attrs> -->
+
+	<!-- <action-attrs name="action-education-attr-gender-onchange"> <attribute name="required" for="gender" expr="!gender" if="{ name &amp; gender } action:action-education-method-gender-onchange 
+		" /> </action-attrs> -->
+
+	<!-- <action-record name="action-education-attr-onload" model="com.axelor.education.db.StudentsEducation"> <field name="todaydate" expr="eval:__date__" /> <field name="currentuser" expr="eval:__user__"/> 
+		</action-record> -->
+
+	<!-- <action-record name="action-education-record-onload" model="com.axelor.education.db.StudentsEducation"> <field name="todaydate" expr="action:action-education-attr" /> </action-record> -->
+</object-views>

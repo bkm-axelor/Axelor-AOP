@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/domain-models
+  http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+
+		<module name="student" package="com.axelor.education.db" />
+
+		<entity name="StudentsEducation" cacheable="true">
+				<!-- <binary name="image" title="Photo" help="Max size 4MB." image="true" /> -->
+				<!-- <one-to-one ref="Image" title="Photo" name="image" /> -->
+				<!-- <one-to-one name="image" title="Image" ref="com.axelor.meta.db.MetaFile" /> -->
+				<many-to-one name="image" title="Photo" ref="com.axelor.meta.db.MetaFile" />
+				<string name="notes" large="true" translatable="true" />
+				<string name="email"  />
+				<string name="phone"  />
+				<string name="name" required="true" max="255" />
+				<one-to-many ref="Education" name="educations" mappedBy="educationList" orphanRemoval="true" />
+				<string name="rollno" />
+				<string name="higherstudies" required="true" selection="education.higherstudies.select" />
+				<!-- <string name="job" />  --><!-- selection="education.jobs.select" -->
+				<boolean name="job" />
+				<string name="gender" selection="education.gender.select"  />
+				<date name="todaydate" />
+				<string name="currentuser" />
+		</entity>
+
+</domain-models>

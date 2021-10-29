@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+	<selection name="student.result.type">
+		<option value="0" color="blue">Pending</option>
+		<option value="1" color="green">Pass</option>
+		<option value="2" color="red">Fail</option>
+	</selection>
+
+	<selection name="student.title.type">
+		<option value="Mr.">Mr.</option>
+		<option value="Mrs.">Mrs.</option>
+	</selection>
+
+	<grid name="student-grid" editable="true" title="Student" model="com.axelor.student.db.Student">
+		<field name="stdName" />
+		<field name="stdPh" />
+		<field name="stdAdds" />
+		<field name="stdDept" />
+		<field name="stdAdds" title="Address" grid-view="student-address-grid" />
+		<field name="stdSub" />
+		<field name="joinDate" title="Joining Date" />
+		<field name="result" title="Result" readonlyIf="Pending" />
+	</grid>
+
+	<form model="com.axelor.student.db.Student" title="Students" name="student-form">
+		<toolbar>
+			<button onClick="action-student-report-onclick-btn" name="btn-print" showIf="id" title="Print" icon="fa-print" showTitle="false" iconHover="Print"></button>
+		</toolbar>
+		<panel colSpan="12">
+			<panel colSpan="4">
+				<field name="studentimage" widget="Image" help="Add Student Image">
+					<viewer>
+						<![CDATA[
+							<img ng-if="(record.studentimage)" ng-src="{{$image(null, 'studentimage')}}">
+							<img ng-if="(!record.studentimage)"  src="img/user.png">
+						]]>
+					</viewer>
+				</field>
+			</panel>
+			<panel title="StudentView" colSpan="8">
+				<field name="title" selection="student.title.type" colSpan="4" />
+				<field name="stdName" title="Student Name" colSpan="8" />
+				<field name="stdPh" canNew="true" title="Phone Number" colSpan="12" form-view="student-phone-form" widget="one-to-one" />
+			</panel>
+		</panel>
+		<panel>
+			<field name="stdDept" colSpan="12" title="Department" canNew="true" form-view="student-department-form" />
+			<spacer />
+			<spacer />
+			<spacer />
+			<!-- <field name="stdAdds" title="Address" colSpan="12" form-view="student-address-form" x-can-copy="false" /> -->
+			<field name="stdSub" title="Subject" colSpan="12" widget="tagSelect">
+			</field>
+		</panel>
+		<!-- <panel-related field="stdPh" form-view="student-phone-form" colSpan="4"></panel-related> -->
+
+		<panel sidebar="true">
+			<field name="joinDate" title="Joining Date"></field>
+			<field name="result" title="Result" readonlyIf="Pending"></field>
+		</panel>
+
+		<panel-related field="stdAdds" editable="true">
+			<field name="stdaddr" />
+			<field name="country" />
+			<field name="state" domain="self.countries = :country" />
+			<field name="city" domain="self.state = :state" />
+			<field name="zipcode" domain="self.zipcodes = :city" />
+		</panel-related>
+	</form>
+	<action-report name="action-student-report-onclick-btn" design="studentReport.rptdesign" output="SR-${date}${time}" format="pdf">
+		<param name="studentId" expr="eval: id" />
+	</action-report>
+
+	<tree name="student-address-tree" title="Std Dept Tree">
+
+		<!-- define tree columns -->
+		<column name="title" type="string" />
+		<column name="address" type="string" />
+
+		<!-- define 1st level node -->
+		<node model="com.axelor.student.db.Student">
+			<!-- onClick="student.tree" -->
+			<field name="stdName" as="title" />
+		</node>
+
+		<!-- define 2nd level node -->
+		<node model="com.axelor.student.db.SAddress" parent="stdAdd" onClick="address.tree" draggable="true">
+			<field name="stdName" as="title" />
+			<field name="stdaddr" as="address" />
+		</node>
+
+	</tree>
+
+
+	<cards name="student-cards" title="Student Card" model="com.axelor.student.db.Student" orderBy="stdName">
+		<field name="studentimage" />
+		<field name="stdName" title="Name" />
+		<field name="stdPh" title="Phone Number" />
+		<field name="stdDept" title="Department" />
+		<field name="stdAdds" title="Address" />
+		<field name="stdSub" title="Subject" />
+		<field name="joinDate" title="Joining Date" />
+		<field name="result" title="Result" />
+		<template><![CDATA[
+		   <div class="span4 card-image">
+	        <img ng-if="studentimage" ng-src="{{$image(null, 'studentimage')}}">
+	        <img ng-if="!studentimage" src="img/user.png">
+	      </div>
+		  <div class="span4">
+		    <h1>{{stdName}}</h1>
+		    <div>
+		      <div>{{stdPh.phoneno}} </div>
+			      <h3>Subjects</h3>
+					<ul><li ng-repeat="sub in stdSub">{{sub.stdSubName}}</li></ul>
+		    </div>
+		    <div>
+		      <div>{{joinDate}} </div>
+		      <div>{{result}} </div>
+		    </div>
+	</div>
+  ]]></template>
+	</cards>
+
+	<chart name="chart-student-result-bar" title="Result Of Student">
+		<search-fields>
+			<field type="integer" name="result" title="Results" />
+		</search-fields>
+		<dataset type="jpql"> 
+  <![CDATA[
+		 select
+			COUNT(student.id) as Id,
+		      student.result as results
+		from
+			Student as student
+		group by
+			student.result
+  ]]>
+  </dataset>
+
+		<!-- <dataset type="sql"> <![CDATA[ select COUNT(student.id) as Id, student.result as results from student_student as student- group by student.result ]]> </dataset> -->
+		<category key="results" type="number" title="Result" />
+		<series key="Id" groupBy="results" type="bar" title="Student Id" />
+	</chart>
+
+	<!-- <div class="span4 card-image"> <strong>{{stdName}}</strong> </div> <div> <table> <tbody> <tr *ngFor="let sub of stdSub"> <td>{{sub.stdSubName}}</td> </tr> </tbody> </table> </div> -->
+
+
+</object-views>

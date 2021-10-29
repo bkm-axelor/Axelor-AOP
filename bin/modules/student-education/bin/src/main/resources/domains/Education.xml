@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/domain-models
+  http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+
+		<module name="education" package="com.axelor.education.db" />
+
+		<entity name="Education" cacheable="true">
+
+				<many-to-one ref="StudentsEducation" name="educationList" />
+				<string name="examination" namecolumn="true" required="true" selection="education.examination.type" />
+				<string name="university" required="true" />
+				<string name="institute" required="true" />
+				<date name="yearOfPassing" required="true" />
+				<integer name="percentage" />
+				<string name="status" />
+		</entity>
+
+</domain-models>

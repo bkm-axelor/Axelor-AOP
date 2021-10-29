@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+	<grid name="subject-grid" editable="true" title="Subjects"
+		edit-icon="false" model="com.axelor.student.db.SAddress">
+		<field name="stdSubName" />
+		<field name="stdSubs" />
+	</grid>
+
+	<form model="com.axelor.student.db.SAddress" title="Subject"
+		name="subject-form">
+		<field name="stdSubName"></field>
+		<field name="stdSubs" />
+	</form>
+
+	<action-view name="Subject View" title="Subject Views"
+		model="com.axelor.student.db.Subject">
+		<view type="form" name="subject-form" />
+		<view type="grid" name="subject-grid" />
+	</action-view>
+
+</object-views>

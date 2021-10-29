@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+	<!-- Pincode -->
+
+	<form model="com.axelor.student.db.Zipcode" title="Pincode" name="student-address-zipcode-form">
+		<panel>
+			<field name="zipcodename" widget="Integer" title="ZIP CODE" required="true" />
+			<field name="zipcodes" required="true" canNew="false" />
+		</panel>
+	</form>
+	<grid model="com.axelor.student.db.Zipcode" title="Pincode" name="student-address-zipcode-grid">
+		<field name="zipcodename" title="ZIP CODE" />
+		<field name="zipcodes" title="ZipCode For" />
+	</grid>
+	<action-view name="action-student-zipcode-view" title="ZipCode" model="com.axelor.student.db.Zipcode">
+		<view type="form" name="student-address-zipcode-form" />
+		<view type="grid" name="student-address-zipcode-grid" />
+	</action-view>
+
+</object-views>

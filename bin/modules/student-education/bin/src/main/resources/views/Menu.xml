@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+	<menuitem title="Education" name="menu-student-education"
+		parent="menu-std-Student" action="education.views" />
+	<action-view name="education.views"
+		title="Education Details"
+		model="com.axelor.education.db.StudentsEducation">
+		<view type="grid" name="education-students-grid" />
+		<view type="form" name="education-students-form" />
+		<view type="cards" name="education-students-card"/>
+	</action-view>
+
+</object-views>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/domain-models
+  http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+
+	<module name="studentmodule" package="com.axelor.student.db" />
+
+	<entity name="City" cacheable="true">
+		<string name="cityname" unique="true" namecolumn="true" />
+		<many-to-one ref="State" name="state" />
+		<!-- <one-to-one ref="Zipcode" name="zipcode" orphanRemoval="true"/> -->
+	</entity>
+
+
+</domain-models>

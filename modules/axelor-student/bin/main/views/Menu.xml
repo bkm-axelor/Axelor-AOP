@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+	<menuitem name="menu-std-Student" title="Student" />
+
+	<menuitem name="menu-std-sub-Student" parent="menu-std-Student" title="Student-All-Relationship" action="Student View" />
+
+	<action-view name="Student View" title="All Student" model="com.axelor.student.db.Student">
+		<view type="form" name="student-form" />
+		<view type="grid" name="student-grid" />
+		<view type="cards" name="student-cards" />
+		<context name="json-enhance" expr="true" />
+	</action-view>
+
+	<menuitem name="student-department-tree-structure" parent="menu-std-Student" title="Student-Department-Tree" action="student.tree" />
+
+	<action-view name="student.tree" title="Students">
+		<view type="tree" name="student-address-tree" />
+	</action-view>
+
+
+	<menuitem title="SubAddress Student" name="student-sub-address-add" parent="menu-std-Student" />
+	
+	<!-- country  -->
+	<menuitem name="student-sub-address-country" parent="student-sub-address-add" title="Country" action="action-student-country-view" />
+
+	<!-- state  -->
+	<menuitem name="student-sub-address-state" parent="student-sub-address-add" title="State" action="action-student-state-view" />
+	
+	<!-- city  -->
+	<menuitem name="student-sub-address-city" parent="student-sub-address-add" title="City" action="action-student-city-view" />
+
+	
+	<!-- Zipcode  -->
+	<menuitem name="student-sub-address-zip" parent="student-sub-address-add" title="Zipcode" action="action-student-zipcode-view" />
+	
+	
+
+	<menuitem title="Departments" name="menu-department" action="Department view" icon-background="red" icon="fa fa-bandcamp" />
+
+	<dashboard name="result.dashboard" title="Welcome!">
+		<dashlet action="chart:chart-student-result-bar" />
+	</dashboard>
+
+	<action-view name="result" title="Results!">
+		<view type="dashboard" name="result.dashboard" />
+	</action-view>
+
+	<menuitem name="menu-dashboards" order="-101" title="Dashboards" icon="fa-dashboard" icon-background="blue" />
+
+	<menuitem name="menu-welcome" parent="menu-dashboards" title="Result!" action="result" />
+
+</object-views>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+	<menuitem name="menu-address-Address" title="Address item" />
+
+	<menuitem name="menu-address-sub-Contact"
+		parent="menu-address-Address" title="Add Address"
+		action="Address View" />
+
+	<action-view name="Address View" title="Add Address"
+		model="com.axelor.address.db.Address">
+		<view type="form" name="address-form-popup" />
+		<view type="grid" name="address-grid-popup" />
+		<view type="cards" name="address-cards" />
+		<view type="kanban" name="address-task-kanban" />
+		<view type="calendar" name="address-calendar-popups" />
+	</action-view>
+
+
+</object-views>

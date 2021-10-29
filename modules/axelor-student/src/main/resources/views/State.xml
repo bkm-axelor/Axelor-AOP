@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+	<!-- State -->
+	<form model="com.axelor.student.db.State" title="State" name="student-state-form">
+		<panel>
+			<field name="statename" title="State Name" required="true" />
+			<field name="countries" title="Country" required="true" canNew="false" />
+		</panel>
+
+	</form>
+	<grid model="com.axelor.student.db.State" title="States" name="student-state-grid">
+		<field name="statename" title="State Name" />
+		<field name="countries" title="Country" />
+	</grid>
+	<action-view name="action-student-state-view" title="State" model="com.axelor.student.db.State">
+		<view type="form" name="student-state-form" />
+		<view type="grid" name="student-state-grid" />
+	</action-view>
+</object-views>
