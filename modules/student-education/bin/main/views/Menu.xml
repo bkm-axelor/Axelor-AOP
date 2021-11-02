@@ -13,5 +13,10 @@
 	<action-view name="extension.views" title="Education Details" model="com.axelor.education.db.StudentsEducation">
 		<view type="form" name="education-students-form" />
 	</action-view>
+	<menuitem title="TestDemo" name="menu-student-test-demo" parent="menu-std-Student" action="test.views" />
+	<action-view name="test.views" title="TestDemo Details" model="com.axelor.education.db.TestDemo2">
+		<view type="form" name="testDemo2-forms" />
+		<view type="grid" name="testDemo2-grid" />
+	</action-view>
 
 </object-views>

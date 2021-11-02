@@ -10,10 +10,10 @@ public class TestDemoRepository extends JpaRepository<TestDemo> {
 		super(TestDemo.class);
 	}
 
-	public TestDemo findByName(String name) {
+	public TestDemo findByCode(String code) {
 		return Query.of(TestDemo.class)
-				.filter("self.name = :name")
-				.bind("name", name)
+				.filter("self.code = :code")
+				.bind("code", code)
 				.fetchOne();
 	}
 

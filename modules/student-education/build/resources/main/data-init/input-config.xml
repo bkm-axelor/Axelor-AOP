@@ -2,5 +2,6 @@
 <csv-inputs xmlns="http://axelor.com/xml/ns/data-import" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/data-import http://axelor.com/xml/ns/data-import/data-import_5.4.xsd">
 	
-	<input file="demo.csv" type="com.axelor.education.db.TestDemo" />
+	<!-- <input file="demo.csv" type="com.axelor.education.db.TestDemo" /> -->
+	<input file=""></input>
 </csv-inputs>

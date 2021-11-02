@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+	<grid model="com.axelor.education.db.TestDemo2" title="TestDemo2" name="testDemo2-grid" >
+		<toolbar>
+			<button onClick="action-csv-Upload" name="CSV" title="CSV Upload" />
+		</toolbar>
+		<field name="name" title="Name" />
+		<field name="code" title="Code" />
+		<field name="uniqueId" title="Unique ID" />
+	</grid>
+	<form model="com.axelor.education.db.TestDemo2" title="TestDemo2" name="testDemo2-forms">
+		<panel>
+			<field name="name" title="Name" required="true" />
+			<field name="code" title="Code" />
+			<field name="uniqueId" title="Unique ID" canNew="true" />
+		</panel>
+	</form>
+	<action-method name="action-csv-Upload">
+		<call class="com.axelor.meta.web.TestDemo2" method="testDefault()" />
+	</action-method>
+
+</object-views>

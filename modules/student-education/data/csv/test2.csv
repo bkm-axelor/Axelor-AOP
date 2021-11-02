@@ -1,5 +1,6 @@
-name,code
-bikash2,123
-akash2,456
-chiku2,789
-miku2,101
+name,code,testdemo.code,carLists.carcode,phone.phones,diffCode
+bikash1234,123,123,001,12,QR
+akash1234,456,456,002,13,BA|UPC
+chiku1234,789,789,003,14,QR|BA
+miku1234,101,098,004,15,QR|UPC
+ASBCDE,911,485,005,16,QR|BA|UPC

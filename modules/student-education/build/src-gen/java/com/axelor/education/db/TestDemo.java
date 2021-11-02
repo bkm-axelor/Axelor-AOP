@@ -11,16 +11,16 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
 import com.axelor.auth.db.AuditableModel;
+import com.axelor.db.annotations.NameColumn;
 import com.axelor.db.annotations.Widget;
 import com.google.common.base.MoreObjects;
 
 @Entity
-@Table(name = "EDUCATION_TEST_DEMO", indexes = { @Index(columnList = "name") })
+@Table(name = "EDUCATION_TEST_DEMO", indexes = { @Index(columnList = "code") })
 public class TestDemo extends AuditableModel {
 
 	@Id
@@ -28,10 +28,10 @@ public class TestDemo extends AuditableModel {
 	@SequenceGenerator(name = "EDUCATION_TEST_DEMO_SEQ", sequenceName = "EDUCATION_TEST_DEMO_SEQ", allocationSize = 1)
 	private Long id;
 
-	@NotNull
-	private String name;
+	@NameColumn
+	private String code;
 
-	private String rollNumber;
+	private String uniqueId;
 
 	@Widget(title = "Attributes")
 	@Basic(fetch = FetchType.LAZY)
@@ -41,8 +41,8 @@ public class TestDemo extends AuditableModel {
 	public TestDemo() {
 	}
 
-	public TestDemo(String name) {
-		this.name = name;
+	public TestDemo(String code) {
+		this.code = code;
 	}
 
 	@Override
@@ -55,20 +55,20 @@ public class TestDemo extends AuditableModel {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getCode() {
+		return code;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public String getRollNumber() {
-		return rollNumber;
+	public String getUniqueId() {
+		return uniqueId;
 	}
 
-	public void setRollNumber(String rollNumber) {
-		this.rollNumber = rollNumber;
+	public void setUniqueId(String uniqueId) {
+		this.uniqueId = uniqueId;
 	}
 
 	public String getAttrs() {
@@ -102,8 +102,8 @@ public class TestDemo extends AuditableModel {
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
 			.add("id", getId())
-			.add("name", getName())
-			.add("rollNumber", getRollNumber())
+			.add("code", getCode())
+			.add("uniqueId", getUniqueId())
 			.omitNullValues()
 			.toString();
 	}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/domain-models
+  http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+
+	<module name="education" package="com.axelor.education.db" />
+
+	<entity name="TestDemo2">
+		<string name="name" required="true" />
+		<string name="code" />
+		<one-to-one ref="Phonies" name="phone" />
+		<many-to-one ref="TestDemo" name="testdemo" />
+		<one-to-many ref="TestDemo3" name="carLists" mappedBy="carList" />
+		<many-to-many ref="TestDemo4" name="codesets" mappedBy="codeset" />
+	</entity>
+
+</domain-models>
